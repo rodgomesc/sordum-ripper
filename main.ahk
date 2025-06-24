@@ -38,6 +38,7 @@ while !ProcessExist("dControl.exe") {
 Sleep 2000
 ConsolePrint("dControl.exe is ready, proceeding with DLL injection...`n")
 ConsolePrint("Executing loader.exe for DLL injection...`n")
+
 try {
     RunWait A_WorkingDir "\Lib\loader.exe", A_WorkingDir "\Lib"
     ConsolePrint("DLL injection completed successfully.`n")
@@ -56,16 +57,9 @@ try {
 
 rip.DumpElements()
 
-btn := rip.FindByText("Disable Windows Defender")
+btn := rip.FindByText("Enable Windows Defender")
 ConsolePrint(rip.DebugElement(btn) . "`n")
 success := rip.Click(btn)
 
-result := rip.WaitForText("Windows Defender is turned off")
-if (result) {
-    MsgBox "Success! Windows Defender is turned off.", "Windows Defender Status"
-} else {
-    MsgBox "Timeout: Could not confirm that Windows Defender was turned off.", "Windows Defender Status"
-}
-
-Sleep 300000
-
+result := rip.WaitForText("Defender cannot be started")
+ConsolePrint("Proceeding with automation...`n")

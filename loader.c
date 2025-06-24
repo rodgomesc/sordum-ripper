@@ -261,11 +261,5 @@ int main() {
     CloseHandle(hThread);
     VirtualFreeEx(hProcess, pRemoteMem, 0, MEM_RELEASE);
     CloseHandle(hProcess);
-
-    printf("\nDLL continues running in target process.\n");
-    printf("Run this program again to get updated element data.\n");
-    printf("Press any key to exit...\n");
-    getchar();
-
     return 0;
 } 
