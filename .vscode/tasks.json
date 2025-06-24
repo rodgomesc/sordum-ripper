@@ -1,0 +1,94 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Configure CMake",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-B", "build",
+                "-DCMAKE_TOOLCHAIN_FILE=${workspaceFolder}/.devcontainer/mingw-toolchain.cmake"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build Project",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "build"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": ["$gcc"],
+            "dependsOn": "Configure CMake"
+        },
+        {
+            "label": "Clean Build",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-rf", "build"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Copy to Lib",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "cp build/libhook.dll Lib/hook.dll && cp build/loader.exe Lib/loader.exe && echo 'Files copied to Lib/'"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "dependsOn": "Build Project"
+        },
+        {
+            "label": "Build and Copy All",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "mkdir -p Lib && cmake -B build -DCMAKE_TOOLCHAIN_FILE=${workspaceFolder}/.devcontainer/mingw-toolchain.cmake && cmake --build build && cp build/libhook.dll Lib/hook.dll && cp build/loader.exe Lib/loader.exe && echo 'Build complete! hook.dll and loader.exe copied to Lib/'"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}

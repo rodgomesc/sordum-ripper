@@ -1,0 +1,20 @@
+# Exclude existing binaries
+Lib/hook.dll
+Lib/loader.exe
+dControl.exe
+
+# Exclude git and other unnecessary files
+.git
+.gitignore
+*.md
+README.md
+
+# Exclude AutoHotkey scripts and other files not needed for C compilation
+*.ahk
+*.vbs
+*.ini
+
+# Exclude build artifacts
+build/
+*.o
+*.obj 
